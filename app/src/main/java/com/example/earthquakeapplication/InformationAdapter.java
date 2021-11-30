@@ -1,19 +1,22 @@
 package com.example.earthquakeapplication;
 
+import static android.support.v4.content.ContextCompat.getColor;
+
 import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.graphics.drawable.GradientDrawable;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
 
 public class InformationAdapter extends ArrayAdapter<InformationList> {
 
@@ -38,6 +41,15 @@ public class InformationAdapter extends ArrayAdapter<InformationList> {
         //  Setting the TextView(magnitude)
         TextView magnitudeView =(TextView) listItemView.findViewById(R.id.magnitude);
         magnitudeView.setText(formatMagnitude(currentItem.getMagnitude()));
+
+        //  Getting the background of the magnitudeView and storing it in a variable
+        GradientDrawable magnitudeCircle =(GradientDrawable) magnitudeView.getBackground();
+
+        //  Appropriate background color based on the current magnitude of earthquake
+        int magnitudeCirceColor = getMagnitudeColor(currentItem.getMagnitude());
+
+        // Setting the background circle color of the EarthQuake's magnitude
+        magnitudeCircle.setColor(magnitudeCirceColor);
 
         //  Offset location variable
         String offSetLocation = getOffSetLocation(currentItem.getPlaceName());
@@ -72,6 +84,50 @@ public class InformationAdapter extends ArrayAdapter<InformationList> {
         timeView.setText(timeFormatted);
 
         return listItemView;
+    }
+
+    /**
+     * Method to get the value of the background color of the magnitude
+     * @param magnitude The magnitude of the EarthQuake
+     * @return  Returns a int value for the color of background circle
+     */
+    private int getMagnitudeColor(Double magnitude){
+        int magnitudeCircleColorId;
+        int magnitudeFloor = (int) Math.floor(magnitude);
+        switch (magnitudeFloor){
+            case 0:
+            case 1:
+                magnitudeCircleColorId = R.color.magnitude1;
+                break;
+            case 2:
+                magnitudeCircleColorId = R.color.magnitude2;
+                break;
+            case 3:
+                magnitudeCircleColorId = R.color.magnitude3;
+                break;
+            case 4:
+                magnitudeCircleColorId = R.color.magnitude4;
+                break;
+            case 5:
+                magnitudeCircleColorId = R.color.magnitude5;
+                break;
+            case 6:
+                magnitudeCircleColorId = R.color.magnitude6;
+                break;
+            case 7:
+                magnitudeCircleColorId = R.color.magnitude7;
+                break;
+            case 8:
+                magnitudeCircleColorId = R.color.magnitude8;
+                break;
+            case 9:
+                magnitudeCircleColorId = R.color.magnitude9;
+                break;
+            default:
+                magnitudeCircleColorId = R.color.magnitude10plus;
+                break;
+        }
+        return ContextCompat.getColor(getContext(),magnitudeCircleColorId);
     }
 
     /**

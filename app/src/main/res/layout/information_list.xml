@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
     xmlns:tool="http://schemas.android.com/tools"
     android:orientation="horizontal"
-    android:padding="16dp">
+    android:paddingEnd="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingStart="16dp">
 
     <TextView
         android:id="@+id/magnitude"
@@ -15,35 +18,65 @@
         android:gravity="center"
         android:textColor="@color/white"
         android:fontFamily="sans-serif-medium"
-        android:textSize="16dp"
+        android:textSize="16sp"
         tool:text="2.6"/>
-
-    <TextView
-        android:id="@+id/offset_name_of_place"
+    
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         android:layout_weight="1"
-        tool:text="Moscow"/>
+        android:layout_marginStart="16dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/offset_name_of_place"
+            android:layout_marginStart="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:maxLines="1"
+            android:textAllCaps="true"
+            android:textColor="@color/textColorEarthquakeDetails"
+            android:textSize="12sp"
+            tool:text="Moscow"/>
 
-    <TextView
-        android:id="@+id/primary_name_of_place"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        tool:text="Moscow"/>
+        <TextView
+            android:id="@+id/primary_name_of_place"
+            android:layout_marginStart="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/textColorEarthquakeLocation"
+            android:textSize="16sp"
+            tool:text="Moscow"/>
 
-    <TextView
-        android:id="@+id/date"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        tool:text="Mar 6, 2010" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/time"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        tool:text="3:00 PM" />
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="16dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:textColor="@color/textColorEarthquakeDetails"
+            android:textSize="12sp"
+            tool:text="Mar 6, 2010" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:textColor="@color/textColorEarthquakeDetails"
+            android:textSize="12sp"
+            tool:text="3:00 PM" />
+    </LinearLayout>
 
 </LinearLayout>
