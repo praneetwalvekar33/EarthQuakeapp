@@ -1,1 +1,2 @@
-Learning to handle JSON objects, arrays and primative data types by using an API to get the data.
+Learning to call APIs to obtain data and integrate it into an android application.
+Learning to query the JSON formatted data obtained from API.
