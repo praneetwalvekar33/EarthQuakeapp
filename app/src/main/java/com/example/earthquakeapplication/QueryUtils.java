@@ -61,9 +61,12 @@ public class QueryUtils {
                 //  Storing the Object with key "time" in variable
                 long time = propertiesObject.getLong("time");
 
+                // Stroing the object with key "url" in variable
+                String url = propertiesObject.getString("url");
+
                 //  Creating the InformationList Object from the properties collected from JSON
                 //  String
-                InformationList information = new InformationList(magnitude, place, time);
+                InformationList information = new InformationList(magnitude, place, time, url);
 
                 //  Adding the object the earthQuakeInformation ArrayList
                 earthQuakeInformation.add(information);
