@@ -42,6 +42,12 @@ public class QueryUtils {
      */
     public static ArrayList<InformationList> fetchArrayListData(String requestUrl){
 
+        try{
+            Thread.sleep(2000);
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
+
         URL url = createUrl(requestUrl);
 
         //  Throws an IOException while calling the makeHttpUrlConnection Method.

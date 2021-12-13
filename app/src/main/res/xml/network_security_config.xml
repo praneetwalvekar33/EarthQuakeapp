@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
-    <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">earthquake.usgs.gov</domain>
-    </domain-config>
+    <base-config>
+        <trust-anchors>
+            <certificates src="@raw/certi_earthquake"/>
+            <certificates src="system"/>
+        </trust-anchors>
+    </base-config>
 </network-security-config>
