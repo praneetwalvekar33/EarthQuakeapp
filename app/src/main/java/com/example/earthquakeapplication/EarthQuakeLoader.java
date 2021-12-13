@@ -4,8 +4,9 @@ import android.content.AsyncTaskLoader;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class EarthQuakeLoader extends AsyncTaskLoader<ArrayList<InformationList>> {
+public class EarthQuakeLoader extends AsyncTaskLoader<List<InformationList>> {
 
     /** Variable to store the String Url*/
     private final String murl;
