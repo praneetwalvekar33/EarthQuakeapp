@@ -2,9 +2,12 @@ package com.example.earthquakeapplication;
 
 
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.Intent;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Loader;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -28,7 +31,10 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
     private static final String USGS_REQUEST_URL =
             "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&orderby=time&minmag=6&limit=10";
 
+    /** TextView for EmptyView of ListView*/
     TextView mEmptyView;
+
+    /** ProgressBarView variable*/
     ProgressBar mProgressBarView;
 
     @Override
@@ -36,19 +42,39 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //  ConnectivityManager to check whether the device is connected to the internet or not
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        LoaderManager lm = getLoaderManager();
+        //  NetworkInfo variable used to determine the internet is connected or not
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
 
-        lm.initLoader(1,null, this);
+        //  TextView used to set the empty view of ListView
+        mEmptyView = findViewById(R.id.empty_view);
 
+        //  ProgressBar displayed when network operation takes a lot of time
+        mProgressBarView = findViewById(R.id.progress_bar);
+
+        //  If connected to network only then loader are created
+        if(networkInfo != null && networkInfo.isConnected()){
+            //  LoaderManager instance
+            LoaderManager lm = getLoaderManager();
+
+            //  creating the loader
+            lm.initLoader(1,null, this);
+        }
+        else{
+
+            //  if not connected to internet then display the message
+            mProgressBarView.setVisibility(View.GONE);
+            mEmptyView.setText(R.string.no_internet);
+        }
 
         // Find a reference to the {@link ListView} in the layout
         ListView earthquakeListView = (ListView) findViewById(R.id.list);
 
-        mEmptyView = findViewById(R.id.empty_view);
+        //  Setting a emptyview for ListView
         earthquakeListView.setEmptyView(mEmptyView);
 
-        mProgressBarView = findViewById(R.id.progress_bar);
 
         // Create a new {@link ArrayAdapter} of earthquakes
         informationAdapter = new InformationAdapter(
@@ -86,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
      */
     @Override
     public Loader<List<InformationList>> onCreateLoader(int i, Bundle bundle) {
-        // TODO: Create a new loader for the given URL
+        //  Create a new loader for the given URL
         return new EarthQuakeLoader(this, USGS_REQUEST_URL);
     }
 
@@ -106,9 +132,10 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
             informationAdapter.addAll(earthquakes);
         }
 
+        //  When no data is present the ListView will show emptyview
+        mEmptyView.setText(R.string.no_earthquake);
 
-            mEmptyView.setText(R.string.no_earthquake);
-
+        //  Making the progressbar disappear when the loader receives the data
         mProgressBarView.setVisibility(View.GONE);
     }
 
@@ -118,9 +145,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
      */
     @Override
     public void onLoaderReset(Loader<List<InformationList>> loader) {
-        // TODO: Loader reset, so we can clear out our existing data.
+        //  Loader reset, so we can clear out our existing data.
         informationAdapter.clear();
     }
-
-
 }
