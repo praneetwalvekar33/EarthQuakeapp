@@ -14,5 +14,13 @@ public class SettingsActivity extends AppCompatActivity {
 
     public static class EarthQuakePreferenceFragment extends PreferenceFragment{
 
+        /**
+         * This method called when the settings activity is created
+         * @param savedInstanceState
+         */
+        public void onCreate(Bundle savedInstanceState){
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.settings_main);
+        }
     }
 }
